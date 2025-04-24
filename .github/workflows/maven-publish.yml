@@ -34,3 +34,13 @@ jobs:
       run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Build Docker image
+      run: docker build -t spring-boot-security-jwt-auth:latest .
+    - name: Load image into Minikube
+      run: minikube image load spring-boot-security-jwt-auth:latest
+    - name: Deploy to Minikube
+      run: |
+        kubectl apply -f k8s/deployment.yaml
+        kubectl apply -f k8s/service.yaml
+    - name: Check rollout status
+      run: kubectl rollout status deployment/spring-boot-security-jwt-auth-deployment
