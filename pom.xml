@@ -87,5 +87,13 @@
 			</plugin>
 		</plugins>
 	</build>
+	
+<distributionManagement>
+  <repository>
+    <id>github</id>
+    <name>GitHub Techlancer45/spring-boot-security-jwt-auth Apache Maven Packages</name>
+    <url>https://github.com/Techlancer45/spring-boot-security-jwt-auth.git</url>
+  </repository>
+</distributionManagement>
 
 </project>
