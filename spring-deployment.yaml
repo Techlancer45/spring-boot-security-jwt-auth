@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-boot-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spring-boot-app
+  template:
+    metadata:
+      labels:
+        app: spring-boot-app
+    spec:
+      containers:
+        - name: spring-boot-container
+          image: my-spring-app
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+          env:
+            - name: MONGO_DB
+              valueFrom:
+                secretKeyRef:
+                  name: my-secrets
+                  key: mongo-db
+            - name: MONGO_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: my-secrets
+                  key: mongo-host
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: my-secrets
+                  key: jwt-secret
+            - name: JWT_EXPIRATION_MS
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: jwtExpirationMs
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-boot-service
+spec:
+  type: NodePort
+  selector:
+    app: spring-boot-app
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 30088
