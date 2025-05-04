@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: spring-boot-container
-          image: my-spring-app
+          image: my-spring-app:latest
           imagePullPolicy: Never
           ports:
             - containerPort: 8080

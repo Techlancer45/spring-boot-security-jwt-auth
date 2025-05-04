@@ -22,9 +22,11 @@ jobs:
       run: mvn clean install
 
     - name: Build Docker Image
-      run: docker build -t spring-boot-app:latest .
+      run: docker build -t my-spring-app:latest .
 
-    - name: Apply K8s Deployment
+    - name: Apply Kubernetes Configurations
       run: |
+        kubectl apply -f k8s/secret.yaml
+        kubectl apply -f k8s/configmap.yaml
         kubectl apply -f k8s/deployment.yaml
         kubectl apply -f k8s/service.yaml
