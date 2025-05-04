@@ -19,7 +19,7 @@ jobs:
         distribution: 'adopt'
 
     - name: Build with Maven
-      run: mvn clean install -DskipTests -Dmaven.test.skip=true
+      run: mvn clean install -DskipTests
     
     - name: Debug mongo_host
       run: echo $mongo_host
