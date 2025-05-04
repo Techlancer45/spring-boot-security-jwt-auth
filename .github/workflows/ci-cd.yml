@@ -26,7 +26,7 @@ jobs:
 
     - name: Apply Kubernetes Configurations
       run: |
-        kubectl apply -f k8s/secret.yaml
-        kubectl apply -f k8s/configmap.yaml
-        kubectl apply -f k8s/deployment.yaml
-        kubectl apply -f k8s/service.yaml
+        kubectl apply -f secret.yaml
+        kubectl apply -f configmap.yaml
+        kubectl apply -f mongo-deployment.yaml
+        kubectl apply -f spring-deployment.yaml
